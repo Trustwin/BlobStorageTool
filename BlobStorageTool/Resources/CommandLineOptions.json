@@ -1,0 +1,69 @@
+{
+  "name": "BlobStorageTool",
+  "description": "Used for managing our BlobStorage",
+  "options":[
+    {
+      "name":"Upload",
+      "description": "Upload the file in the From argument to the To path ( with directory included in the path )",
+      "expectsVariable": false,
+      "commands": [
+        "/u",
+        "--upload"
+      ]
+    },
+    {
+      "name":"Delete",
+      "description": "Deletes the file named as the parameter",
+      "expectsVariable": true,
+      "commands": [
+        "/d",
+        "--delete"
+      ]
+    },
+    {
+      "name":"Account",
+      "description": "The account name to be accessed",
+      "expectsVariable": true,
+      "commands": [
+        "/a",
+        "--account"
+      ]
+    },
+    {
+      "name":"Key",
+      "description": "Sets the key to be used",
+      "expectsVariable": true,
+      "commands": [
+        "/k",
+        "--key"
+      ]
+    },
+    {
+      "name":"To",
+      "description": "Where this is going",
+      "expectsVariable": true,
+      "commands": [
+        "/t",
+        "--to"
+      ]
+    },
+    {
+      "name":"From",
+      "description": "Where this comes from",
+      "expectsVariable": true,
+      "commands": [
+        "/f",
+        "--from"
+      ]
+    },
+    {
+      "name":"Container",
+      "description": "The container name to use",
+      "expectsVariable": true,
+      "commands": [
+        "/c",
+        "--container"
+      ]
+    }
+  ]
+}
