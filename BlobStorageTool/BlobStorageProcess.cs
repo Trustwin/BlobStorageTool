@@ -1,5 +1,10 @@
 using Azure.Storage.Blobs;
 using Azure.Storage.Blobs.Models;
+using Azure.Storage.Blobs.Specialized;
+using System.ComponentModel;
+using System.IO;
+using System.Reflection;
+using System.Xml.Linq;
 
 namespace BlobStorageTool;
 
@@ -51,9 +56,13 @@ public class BlobStorageProcess(Options options)
                 return 1;
         }
 
+        // Adjust the timeoout for large files
+        var clientOptions = new BlobClientOptions();
+        clientOptions.Retry.NetworkTimeout = new TimeSpan(0, 30, 0);
+
         // connect to the container        
         var connectionString = $"DefaultEndpointsProtocol=https;AccountName={options.Account};AccountKey={options.Key};EndpointSuffix=core.windows.net";
-        var blobServiceClient = new BlobServiceClient(connectionString);
+        var blobServiceClient = new BlobServiceClient(connectionString, clientOptions);
         var blobContainerClient =
             blobServiceClient.GetBlobContainerClient(options.Container);
         
@@ -65,12 +74,13 @@ public class BlobStorageProcess(Options options)
         
         // do the process
         if (!Options.Upload) return 1;
-        
+
+
         await blobContainerClient.CreateIfNotExistsAsync(PublicAccessType.None);
-        var blobName = options.From;
+        var blobName = options.To;
         var blobClient = blobContainerClient.GetBlobClient(blobName);
 
-        await using var uploadFileStream = File.OpenRead(options.To!);
+        await using var uploadFileStream = File.OpenRead(options.From!);
         await blobClient.UploadAsync(uploadFileStream, true);
         uploadFileStream.Close();
         return 0;
