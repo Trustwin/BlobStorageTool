@@ -1,0 +1,25 @@
+# Normalize line endings. Git stores LF in the repository and checks files out
+# with each platform's native endings. This prevents spurious whole-file diffs
+# caused by CRLF/LF mismatches between Windows (Visual Studio) and the
+# macOS-shared volume this repo lives on.
+* text=auto
+
+# Common binary assets — declared explicitly so they are never line-ending
+# converted (text=auto already auto-detects these; this is belt-and-suspenders).
+*.png  binary
+*.jpg  binary
+*.jpeg binary
+*.gif  binary
+*.bmp  binary
+*.ico  binary
+*.cur  binary
+*.pdf  binary
+*.zip  binary
+*.gz   binary
+*.7z   binary
+*.dll  binary
+*.exe  binary
+*.pdb  binary
+*.snk  binary
+*.rpt  binary
+*.msi  binary
